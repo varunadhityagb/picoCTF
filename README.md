@@ -68,4 +68,84 @@ print(flag)
 ~~~
 
 ---
+## picoGYM ARMssembly 0 challenge
 
+I first compiled the assembly code, then had to install an emulator to run ARM assembly code, on running the code with the given numbers as arguments a result was given out.
+Then converted this decimal result to hexadecimal using rapidtables, on converting it to the specified format the flag was found.
+
+---
+## picoGYM ARMssembly 1 challenge
+
+From reading the assembly code, it was evident that for a particular input, the program displays 'You win' and that input is the flag in the hex form. I creadted a python script to get the input.
+~~~
+import os
+
+for i in range(100):
+    res = os.popen(f"./chall_1 {i}").read()
+    if 'win' in res:
+        flag = i
+        break
+
+print("picoCTF{", hex(flag),"}")
+~~~
+After converting the number to the specified format, the flag was found.
+
+---
+## picoGYM ARMssembly 2 challenge
+
+Had a similar approach as the [ARMssembly 0 challenge](https://github.com/varunadhityagb/picoCTF/edit/main/README.md#picogym-armssembly-0-challenge).
+
+---
+## picoGYM file-run1 challenge
+
+This was a very easy direct problem, i just had to run the file.
+
+---
+## picoGYM file-run2 challenge
+
+This was also a direct problem.
+
+---
+## picoGYM GDB test drive challenge
+
+Just had to follow the instructions, and got the flag.
+
+---
+## picoGYM patchme.py challenge
+
+On reading the python code, i found that we just have to concat the given strings in the code to obtain the flag.
+![image](https://github.com/varunadhityagb/picoCTF/assets/88021294/2bdcf36e-906f-40f1-ba6c-4d1ae609f53e)
+
+---
+## picoGYM Safe Opener challenge
+
+On reading the code, i found that the encoded key was hard coded and it was just a simple comparison and the flag was just base64 encoded.
+I took the encoded text and found the flag using CyberChef.
+
+---
+## picoGYM unpackme.py challenge
+
+~~~
+import base64
+from cryptography.fernet import Fernet
+
+
+
+payload = b'gAAAAABkzWGWvEp8gLI9AcIn5o-ahDUwkTvM6EwF7YYMZlE-_Gf9rcNYjxIgX4b0ltY6bcxKarib2ds6POclRwCwhsRb1LOXVt4Q3ePtMY4BmHFFZlIHLk05CjwigT7hiI9p3sH9e7Cpk1uO90xbHbuy-mfi3nkmn411aBgwxyWpJvykpkuBIG_nty6zbox3UhbB85TOis0TgM0zG4ht0-GUW4wTq2_5-wkw3kV1ZAisLJHzF-Z9oLMmwFZU0UCAcHaBTGDF5BnVLmUeCGTgzVLSNn6BmB61Yg=='
+
+key_str = 'correctstaplecorrectstaplecorrec'
+key_base64 = base64.b64encode(key_str.encode())
+f = Fernet(key_base64)
+plain = f.decrypt(payload)
+print(plain)
+#exec(plain.decode())
+~~~
+After modifying the code a little bit, the decrypted string was found which contained the flag.
+
+---
+## picoGYM Ready Gladiator 0 challenge
+
+In this game we just have to loose, so as to loose the player needs not move at all.
+So i just connected to the server and ended it immediately, then the flag was displayed.
+
+---
